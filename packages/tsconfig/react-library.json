@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "React Library",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "lib": ["ES2015"],
+    "module": "ESNext",
+    "target": "ESNext",
+
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+
+    "baseUrl": "src",
+    "outDir": "dist"
+  },
+  "exclude": ["node_modules"]
+}

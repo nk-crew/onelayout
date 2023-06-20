@@ -1,9 +1,10 @@
 import React from "react";
-import { css, CacheProvider } from "@emotion/react";
-import { getBreakpoints } from "../utils/getBreakpoints";
+import { css, CacheProvider, useTheme } from "@emotion/react";
+import { getBreakpointNames } from "../utils/getBreakpointNames";
 import { getContainerWidth } from "../utils/getContainerWidth";
 import { getMediaCSS } from "../utils/getMediaCSS";
 import { getEmotionCache } from "../utils/getEmotionCache";
+import { Context } from "./Context";
 
 type ContainerProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -18,7 +19,7 @@ type ContainerProps = {
   props: React.ComponentPropsWithoutRef<"div">; // to impersonate all the props of a button element and explicitly not forwarding its ref
 };
 
-export function Container({
+export function ContainerInner({
   as = "div",
   xl = false,
   lg = false,
@@ -39,7 +40,8 @@ export function Container({
     size = "sm";
   }
 
-  const breakpoints = getBreakpoints("first", size);
+  const { breakpoints, containerMaxWidths } = useTheme();
+  const breakpointNames = getBreakpointNames(breakpoints, "first", size);
 
   return (
     <CacheProvider value={getEmotionCache()}>
@@ -49,12 +51,28 @@ export function Container({
           margin-right: auto;
           width: 100%;
 
-          ${breakpoints.map((bp) => {
-            return getMediaCSS(bp, `max-width: ${getContainerWidth(bp)};`);
+          ${breakpointNames.map((bp) => {
+            return getMediaCSS(
+              bp,
+              `max-width: ${getContainerWidth(
+                bp,
+                containerMaxWidths,
+                breakpoints
+              )};`,
+              breakpoints
+            );
           })}
         `}
         {...restProps}
       />
     </CacheProvider>
+  );
+}
+
+export function Container(props: ContainerProps): JSX.Element {
+  return (
+    <Context>
+      <ContainerInner {...props} />
+    </Context>
   );
 }

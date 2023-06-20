@@ -17,8 +17,8 @@
     "eslint-config-custom": "*",
     "prettier": "latest",
     "turbo": "latest",
-    "husky": "^8.0.2",
-    "lint-staged": "^13.1.0"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2"
   },
   "engines": {
     "node": ">=14.0.0"

@@ -1,3 +1,4 @@
+export { ThemeProvider } from '@emotion/react';
 import React from 'react';
 
 type ContainerProps = {
@@ -11,7 +12,7 @@ type ContainerProps = {
     style?: React.CSSProperties;
     props: React.ComponentPropsWithoutRef<"div">;
 };
-declare function Container({ as, xl, lg, md, sm, ...restProps }: ContainerProps): JSX.Element;
+declare function Container(props: ContainerProps): JSX.Element;
 
 type RowStyleProps = {
     as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -47,10 +48,10 @@ declare function Col(props: ColProps): JSX.Element;
 
 type BreakpointsTypes = "sm" | "md" | "lg" | "xl" | "xxl" | string;
 
-declare function getBreakpoints(from?: "first" | "last" | BreakpointsTypes, to?: "first" | "last" | BreakpointsTypes): BreakpointsTypes[];
+declare function getBreakpointNames(breakpoints: any, from?: "first" | "last" | BreakpointsTypes, to?: "first" | "last" | BreakpointsTypes): BreakpointsTypes[];
 
-declare function getContainerWidth(bp: string): string | number;
+declare function getContainerWidth(bp: string, containerMaxWidths: any, breakpoints: any): string | number;
 
-declare function getMediaCSS(bp: string, content: string): string;
+declare function getMediaCSS(bp: string, content: string, breakpoints: any): string;
 
-export { Col, Container, Row, getBreakpoints, getContainerWidth, getMediaCSS };
+export { Col, Container, Row, getBreakpointNames, getContainerWidth, getMediaCSS };

@@ -100,6 +100,42 @@ export default function Home() {
                 <Box>Grow</Box>
               </Col>
             </Row>
+
+            <h2>Custom Breakpoints and Theme</h2>
+            <p>
+              There is support for ThemeProvider and you can easily override
+              defaults. Example:
+            </p>
+            <pre>
+              {`
+import { ThemeProvider } from "onelayout";
+
+export default function App() {
+  return (
+    <ThemeProvider
+      theme={{
+        breakpoints: {
+          sm: "576px",
+          md: "768px",
+          lg: "1024px",
+          xl: "1280px",
+          xxl: "1536px",
+        },
+        containerMaxWidths: {
+          sm: "540px",
+          md: "740px",
+          lg: "996px",
+          xl: "1200px",
+          xxl: "1490px",
+        },
+      }}
+    >
+      ... your app ...
+    </ThemeProvider>
+  );
+}
+              `}
+            </pre>
           </Col>
         </Row>
       </Container>

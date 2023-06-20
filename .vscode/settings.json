@@ -39,5 +39,13 @@
     "**/apps/**",
     "**/packages",
     "**/packages/**"
-  ]
+  ],
+
+  "search.exclude": {
+    "**/.git": true,
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true,
+  },
 }

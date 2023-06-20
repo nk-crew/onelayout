@@ -1,8 +1,8 @@
-import { css, CacheProvider } from "@emotion/react";
-import { getBreakpoints } from "../utils/getBreakpoints";
-import { getEmotionCache } from "../utils/getEmotionCache";
+import { css, useTheme } from "@emotion/react";
 import { getMediaCSS } from "../utils/getMediaCSS";
+import { getBreakpointNames } from "../utils/getBreakpointNames";
 import round from "../utils/round";
+import { Context } from "./Context";
 
 type ColStyleProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -66,7 +66,7 @@ function getStyles(props: ColStyleProps) {
   return result;
 }
 
-export function Col(props: ColProps): JSX.Element {
+function ColInner(props: ColProps): JSX.Element {
   const {
     as = "div",
     size = "grow",
@@ -81,28 +81,36 @@ export function Col(props: ColProps): JSX.Element {
   } = props;
 
   const Element = as;
-  const breakpoints = getBreakpoints();
+
+  const { breakpoints } = useTheme();
+  const breakpointNames = getBreakpointNames(breakpoints);
 
   return (
-    <CacheProvider value={getEmotionCache()}>
-      <Element
-        css={css`
-          ${getStyles({
-            size,
-            justify,
-            align,
-          })}
+    <Element
+      css={css`
+        ${getStyles({
+          size,
+          justify,
+          align,
+        })}
 
-          ${breakpoints.map((bp) => {
-            if (typeof props[bp] !== "undefined") {
-              return getMediaCSS(bp, getStyles(props[bp]));
-            }
+        ${breakpointNames.map((bp) => {
+          if (typeof props[bp] !== "undefined") {
+            return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
+          }
 
-            return "";
-          })}
-        `}
-        {...restProps}
-      />
-    </CacheProvider>
+          return "";
+        })}
+      `}
+      {...restProps}
+    />
+  );
+}
+
+export function Col(props: ColProps): JSX.Element {
+  return (
+    <Context>
+      <ColInner {...props} />
+    </Context>
   );
 }

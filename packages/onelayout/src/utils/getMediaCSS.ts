@@ -1,8 +1,10 @@
-import { breakpoints } from "../constants.js";
-
-export function getMediaCSS(bp: string, content: string): string {
+export function getMediaCSS(
+  bp: string,
+  content: string,
+  breakpoints: any
+): string {
   return `
-    @media screen and (min-width: ${breakpoints[bp]}px) {
+    @media screen and (min-width: ${breakpoints[bp]}) {
       ${content}
     }
   `;

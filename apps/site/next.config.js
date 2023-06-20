@@ -5,9 +5,7 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
-  experimental: {
-    transpilePackages: ["onelayout"],
-  },
+  transpilePackages: ["onelayout"],
 };
 
 module.exports = nextConfig;

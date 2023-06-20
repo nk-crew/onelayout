@@ -1,7 +1,8 @@
-import { css, CacheProvider } from "@emotion/react";
-import { getBreakpoints } from "../utils/getBreakpoints";
+import { css, CacheProvider, useTheme } from "@emotion/react";
+import { getBreakpointNames } from "../utils/getBreakpointNames";
 import { getEmotionCache } from "../utils/getEmotionCache";
 import { getMediaCSS } from "../utils/getMediaCSS";
+import { Context } from "./Context";
 
 type RowStyleProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -73,7 +74,7 @@ function getStyles(props: RowStyleProps) {
   return result;
 }
 
-export function Row(props: RowProps): JSX.Element {
+export function RowInner(props: RowProps): JSX.Element {
   const {
     as = "div",
     direction = "row",
@@ -90,7 +91,8 @@ export function Row(props: RowProps): JSX.Element {
   } = props;
 
   const Element = as;
-  const breakpoints = getBreakpoints();
+  const { breakpoints } = useTheme();
+  const breakpointNames = getBreakpointNames(breakpoints);
 
   return (
     <CacheProvider value={getEmotionCache()}>
@@ -104,9 +106,9 @@ export function Row(props: RowProps): JSX.Element {
             wrap,
           })}
 
-          ${breakpoints.map((bp) => {
+          ${breakpointNames.map((bp) => {
             if (typeof props[bp] !== "undefined") {
-              return getMediaCSS(bp, getStyles(props[bp]));
+              return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
             }
 
             return "";
@@ -123,5 +125,13 @@ export function Row(props: RowProps): JSX.Element {
         {...restProps}
       />
     </CacheProvider>
+  );
+}
+
+export function Row(props: RowProps): JSX.Element {
+  return (
+    <Context>
+      <RowInner {...props} />
+    </Context>
   );
 }

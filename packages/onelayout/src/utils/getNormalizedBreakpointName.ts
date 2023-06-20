@@ -1,6 +1,7 @@
-import { breakpoints, BreakpointsTypes } from "../constants";
+import { BreakpointsTypes } from "../constants";
 
 export function getNormalizedBreakpointName(
+  breakpoints: any,
   name: "first" | "last" | BreakpointsTypes = "sm"
 ): BreakpointsTypes {
   let result;

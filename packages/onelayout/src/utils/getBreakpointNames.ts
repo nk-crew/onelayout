@@ -1,13 +1,14 @@
-import { breakpoints, BreakpointsTypes } from "../constants";
+import { BreakpointsTypes } from "../constants";
 import { getNormalizedBreakpointName } from "./getNormalizedBreakpointName";
 
-export function getBreakpoints(
+export function getBreakpointNames(
+  breakpoints: any,
   from: "first" | "last" | BreakpointsTypes = "first",
   to: "first" | "last" | BreakpointsTypes = "last"
 ): BreakpointsTypes[] {
   const result: BreakpointsTypes[] = [];
-  const fromNormal = getNormalizedBreakpointName(from);
-  const toNormal = getNormalizedBreakpointName(to);
+  const fromNormal = getNormalizedBreakpointName(breakpoints, from);
+  const toNormal = getNormalizedBreakpointName(breakpoints, to);
 
   let save = false;
 

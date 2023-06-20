@@ -30,9 +30,9 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  Col: () => Col,
-  Container: () => Container,
-  Row: () => Row,
+  Col: () => ColWithContext,
+  Container: () => ContainerWithContext,
+  Row: () => RowWithContext,
   ThemeProvider: () => import_react5.ThemeProvider,
   getBreakpointNames: () => getBreakpointNames,
   getContainerWidth: () => getContainerWidth,
@@ -92,7 +92,7 @@ function getMediaCSS(bp, content, breakpoints) {
 
 // src/utils/getEmotionCache.ts
 var import_cache = __toESM(require("@emotion/cache"), 1);
-var emotionCache = (0, import_cache.default)({ key: "onelayout" });
+var emotionCache = (0, import_cache.default)({ key: "ol" });
 function getEmotionCache() {
   return emotionCache;
 }
@@ -138,27 +138,15 @@ function Context(props) {
 
 // src/components/Container.tsx
 var import_jsx_runtime2 = require("@emotion/react/jsx-runtime");
-function ContainerInner({
+function Container({
   as = "div",
-  xl = false,
-  lg = false,
-  md = false,
-  sm = false,
+  min = "first",
+  max = "last",
   ...restProps
 }) {
   const Element = as;
-  let size = "xxl";
-  if (xl) {
-    size = "xl";
-  } else if (lg) {
-    size = "lg";
-  } else if (md) {
-    size = "md";
-  } else if (sm) {
-    size = "sm";
-  }
   const { breakpoints, containerMaxWidths } = (0, import_react2.useTheme)();
-  const breakpointNames = getBreakpointNames(breakpoints, "first", size);
+  const breakpointNames = getBreakpointNames(breakpoints, min, max);
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.CacheProvider, { value: getEmotionCache(), children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     Element,
     {
@@ -183,8 +171,8 @@ function ContainerInner({
     }
   ) });
 }
-function Container(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(ContainerInner, { ...props }) });
+function ContainerWithContext(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Container, { ...props }) });
 }
 
 // src/components/Row.tsx
@@ -229,7 +217,7 @@ function getStyles(props) {
   }
   return result;
 }
-function RowInner(props) {
+function Row(props) {
   const {
     as = "div",
     direction = "row",
@@ -278,8 +266,8 @@ function RowInner(props) {
     }
   ) });
 }
-function Row(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RowInner, { ...props }) });
+function RowWithContext(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Row, { ...props }) });
 }
 
 // src/components/Col.tsx
@@ -331,7 +319,7 @@ function getStyles2(props) {
   }
   return result;
 }
-function ColInner(props) {
+function Col(props) {
   const {
     as = "div",
     size = "grow",
@@ -368,8 +356,8 @@ function ColInner(props) {
     }
   );
 }
-function Col(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(ColInner, { ...props }) });
+function ColWithContext(props) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Col, { ...props }) });
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

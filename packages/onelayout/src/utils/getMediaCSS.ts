@@ -1,4 +1,4 @@
-export function getMediaCSS(
+export default function getMediaCSS(
   bp: string,
   content: string,
   breakpoints: any

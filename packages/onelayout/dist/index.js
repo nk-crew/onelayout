@@ -52,7 +52,7 @@ function getMediaCSS(bp, content, breakpoints) {
 
 // src/utils/getEmotionCache.ts
 import createCache from "@emotion/cache";
-var emotionCache = createCache({ key: "onelayout" });
+var emotionCache = createCache({ key: "ol" });
 function getEmotionCache() {
   return emotionCache;
 }
@@ -98,27 +98,15 @@ function Context(props) {
 
 // src/components/Container.tsx
 import { jsx as jsx2 } from "@emotion/react/jsx-runtime";
-function ContainerInner({
+function Container({
   as = "div",
-  xl = false,
-  lg = false,
-  md = false,
-  sm = false,
+  min = "first",
+  max = "last",
   ...restProps
 }) {
   const Element = as;
-  let size = "xxl";
-  if (xl) {
-    size = "xl";
-  } else if (lg) {
-    size = "lg";
-  } else if (md) {
-    size = "md";
-  } else if (sm) {
-    size = "sm";
-  }
   const { breakpoints, containerMaxWidths } = useTheme2();
-  const breakpointNames = getBreakpointNames(breakpoints, "first", size);
+  const breakpointNames = getBreakpointNames(breakpoints, min, max);
   return /* @__PURE__ */ jsx2(CacheProvider2, { value: getEmotionCache(), children: /* @__PURE__ */ jsx2(
     Element,
     {
@@ -143,8 +131,8 @@ function ContainerInner({
     }
   ) });
 }
-function Container(props) {
-  return /* @__PURE__ */ jsx2(Context, { children: /* @__PURE__ */ jsx2(ContainerInner, { ...props }) });
+function ContainerWithContext(props) {
+  return /* @__PURE__ */ jsx2(Context, { children: /* @__PURE__ */ jsx2(Container, { ...props }) });
 }
 
 // src/components/Row.tsx
@@ -189,7 +177,7 @@ function getStyles(props) {
   }
   return result;
 }
-function RowInner(props) {
+function Row(props) {
   const {
     as = "div",
     direction = "row",
@@ -238,8 +226,8 @@ function RowInner(props) {
     }
   ) });
 }
-function Row(props) {
-  return /* @__PURE__ */ jsx3(Context, { children: /* @__PURE__ */ jsx3(RowInner, { ...props }) });
+function RowWithContext(props) {
+  return /* @__PURE__ */ jsx3(Context, { children: /* @__PURE__ */ jsx3(Row, { ...props }) });
 }
 
 // src/components/Col.tsx
@@ -291,7 +279,7 @@ function getStyles2(props) {
   }
   return result;
 }
-function ColInner(props) {
+function Col(props) {
   const {
     as = "div",
     size = "grow",
@@ -328,13 +316,13 @@ function ColInner(props) {
     }
   );
 }
-function Col(props) {
-  return /* @__PURE__ */ jsx4(Context, { children: /* @__PURE__ */ jsx4(ColInner, { ...props }) });
+function ColWithContext(props) {
+  return /* @__PURE__ */ jsx4(Context, { children: /* @__PURE__ */ jsx4(Col, { ...props }) });
 }
 export {
-  Col,
-  Container,
-  Row,
+  ColWithContext as Col,
+  ContainerWithContext as Container,
+  RowWithContext as Row,
   ThemeProvider2 as ThemeProvider,
   getBreakpointNames,
   getContainerWidth,

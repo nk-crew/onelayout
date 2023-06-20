@@ -1,6 +1,6 @@
-import { getNormalizedBreakpointName } from "./getNormalizedBreakpointName";
+import getNormalizedBreakpointName from "./getNormalizedBreakpointName";
 
-export function getContainerWidth(
+export default function getContainerWidth(
   bp: string,
   containerMaxWidths: any,
   breakpoints: any

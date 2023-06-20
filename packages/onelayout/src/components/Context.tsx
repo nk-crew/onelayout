@@ -1,5 +1,5 @@
 import { ThemeProvider, CacheProvider, useTheme } from "@emotion/react";
-import { getEmotionCache } from "../utils/getEmotionCache";
+import getEmotionCache from "../utils/getEmotionCache";
 
 import defaultTheme from "../theme";
 
@@ -7,7 +7,7 @@ type ContextProps =
   // TODO: remove this any. We added it because there is an unresolved TS error.
   any;
 
-export function Context(props: ContextProps): JSX.Element {
+export default function Context(props: ContextProps): JSX.Element {
   const { breakpoints, containerMaxWidths } = useTheme();
 
   const theme = {

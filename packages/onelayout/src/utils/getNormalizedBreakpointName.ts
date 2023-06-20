@@ -1,6 +1,6 @@
 import { BreakpointsTypes } from "../constants";
 
-export function getNormalizedBreakpointName(
+export default function getNormalizedBreakpointName(
   breakpoints: any,
   name: "first" | "last" | BreakpointsTypes = "sm"
 ): BreakpointsTypes {

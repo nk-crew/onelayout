@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 
-const emotionCache = createCache({ key: "onelayout" });
+const emotionCache = createCache({ key: "ol" });
 
-export function getEmotionCache() {
+export default function getEmotionCache() {
   return emotionCache;
 }

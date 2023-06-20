@@ -3,16 +3,14 @@ import React from 'react';
 
 type ContainerProps = {
     as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
-    xl?: boolean;
-    lg?: boolean;
-    md?: boolean;
-    sm?: boolean;
+    min?: string;
+    max?: string;
     children?: React.ReactNode;
     childrenElement: JSX.Element;
     style?: React.CSSProperties;
     props: React.ComponentPropsWithoutRef<"div">;
 };
-declare function Container(props: ContainerProps): JSX.Element;
+declare function ContainerWithContext(props: ContainerProps): JSX.Element;
 
 type RowStyleProps = {
     as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -29,7 +27,7 @@ type RowProps = any | (RowStyleProps & {
     xl?: RowStyleProps;
     xxl?: RowStyleProps;
 });
-declare function Row(props: RowProps): JSX.Element;
+declare function RowWithContext(props: RowProps): JSX.Element;
 
 type ColStyleProps = {
     as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -44,7 +42,7 @@ type ColProps = any | (ColStyleProps & {
     xl?: ColStyleProps;
     xxl?: ColStyleProps;
 });
-declare function Col(props: ColProps): JSX.Element;
+declare function ColWithContext(props: ColProps): JSX.Element;
 
 type BreakpointsTypes = "sm" | "md" | "lg" | "xl" | "xxl" | string;
 
@@ -54,4 +52,4 @@ declare function getContainerWidth(bp: string, containerMaxWidths: any, breakpoi
 
 declare function getMediaCSS(bp: string, content: string, breakpoints: any): string;
 
-export { Col, Container, Row, getBreakpointNames, getContainerWidth, getMediaCSS };
+export { ColWithContext as Col, ContainerWithContext as Container, RowWithContext as Row, getBreakpointNames, getContainerWidth, getMediaCSS };

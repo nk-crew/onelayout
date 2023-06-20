@@ -1,8 +1,8 @@
 import { css, CacheProvider, useTheme } from "@emotion/react";
-import { getBreakpointNames } from "../utils/getBreakpointNames";
-import { getEmotionCache } from "../utils/getEmotionCache";
-import { getMediaCSS } from "../utils/getMediaCSS";
-import { Context } from "./Context";
+import getBreakpointNames from "../utils/getBreakpointNames";
+import getEmotionCache from "../utils/getEmotionCache";
+import getMediaCSS from "../utils/getMediaCSS";
+import Context from "./Context";
 
 type RowStyleProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -74,7 +74,7 @@ function getStyles(props: RowStyleProps) {
   return result;
 }
 
-export function RowInner(props: RowProps): JSX.Element {
+function Row(props: RowProps): JSX.Element {
   const {
     as = "div",
     direction = "row",
@@ -128,10 +128,10 @@ export function RowInner(props: RowProps): JSX.Element {
   );
 }
 
-export function Row(props: RowProps): JSX.Element {
+export default function RowWithContext(props: RowProps): JSX.Element {
   return (
     <Context>
-      <RowInner {...props} />
+      <Row {...props} />
     </Context>
   );
 }

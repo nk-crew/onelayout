@@ -1,8 +1,8 @@
 import { css, useTheme } from "@emotion/react";
-import { getMediaCSS } from "../utils/getMediaCSS";
-import { getBreakpointNames } from "../utils/getBreakpointNames";
+import getMediaCSS from "../utils/getMediaCSS";
+import getBreakpointNames from "../utils/getBreakpointNames";
 import round from "../utils/round";
-import { Context } from "./Context";
+import Context from "./Context";
 
 type ColStyleProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
@@ -66,7 +66,7 @@ function getStyles(props: ColStyleProps) {
   return result;
 }
 
-function ColInner(props: ColProps): JSX.Element {
+function Col(props: ColProps): JSX.Element {
   const {
     as = "div",
     size = "grow",
@@ -107,10 +107,10 @@ function ColInner(props: ColProps): JSX.Element {
   );
 }
 
-export function Col(props: ColProps): JSX.Element {
+export default function ColWithContext(props: ColProps): JSX.Element {
   return (
     <Context>
-      <ColInner {...props} />
+      <Col {...props} />
     </Context>
   );
 }

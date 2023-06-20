@@ -1,17 +1,15 @@
 import React from "react";
 import { css, CacheProvider, useTheme } from "@emotion/react";
-import { getBreakpointNames } from "../utils/getBreakpointNames";
-import { getContainerWidth } from "../utils/getContainerWidth";
-import { getMediaCSS } from "../utils/getMediaCSS";
-import { getEmotionCache } from "../utils/getEmotionCache";
-import { Context } from "./Context";
+import getBreakpointNames from "../utils/getBreakpointNames";
+import getContainerWidth from "../utils/getContainerWidth";
+import getMediaCSS from "../utils/getMediaCSS";
+import getEmotionCache from "../utils/getEmotionCache";
+import Context from "./Context";
 
 type ContainerProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
-  xl?: boolean;
-  lg?: boolean;
-  md?: boolean;
-  sm?: boolean;
+  min?: string;
+  max?: string;
   children?: React.ReactNode; // Accepts everything React can render
   childrenElement: JSX.Element; // A single React element
   style?: React.CSSProperties; // to pass through style props
@@ -19,29 +17,16 @@ type ContainerProps = {
   props: React.ComponentPropsWithoutRef<"div">; // to impersonate all the props of a button element and explicitly not forwarding its ref
 };
 
-export function ContainerInner({
+function Container({
   as = "div",
-  xl = false,
-  lg = false,
-  md = false,
-  sm = false,
+  min = "first",
+  max = "last",
   ...restProps
 }: ContainerProps): JSX.Element {
   const Element = as;
-  let size = "xxl";
-
-  if (xl) {
-    size = "xl";
-  } else if (lg) {
-    size = "lg";
-  } else if (md) {
-    size = "md";
-  } else if (sm) {
-    size = "sm";
-  }
 
   const { breakpoints, containerMaxWidths } = useTheme();
-  const breakpointNames = getBreakpointNames(breakpoints, "first", size);
+  const breakpointNames = getBreakpointNames(breakpoints, min, max);
 
   return (
     <CacheProvider value={getEmotionCache()}>
@@ -69,10 +54,12 @@ export function ContainerInner({
   );
 }
 
-export function Container(props: ContainerProps): JSX.Element {
+export default function ContainerWithContext(
+  props: ContainerProps
+): JSX.Element {
   return (
     <Context>
-      <ContainerInner {...props} />
+      <Container {...props} />
     </Context>
   );
 }

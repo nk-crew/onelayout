@@ -11,15 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: NPM install
-        run: npm install
+      - uses: actions/setup-node@v3
 
       - name: NPM build
-        run: npm run build
+        run: npm build
 
       - name: Running the lint
-        run: npm run lint
+        run: npm lint
 
       - name: Running the tests
-        run: npm run test
+        run: npm test

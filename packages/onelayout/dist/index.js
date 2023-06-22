@@ -138,7 +138,7 @@ function ContainerWithContext(props) {
 // src/components/Row.tsx
 import { css as css2, CacheProvider as CacheProvider3, useTheme as useTheme3 } from "@emotion/react";
 
-// src/utils/splitSides.ts
+// src/utils/splitSides/index.ts
 function split(value, separators, { last = false } = {}) {
   const array = [];
   let current = "";

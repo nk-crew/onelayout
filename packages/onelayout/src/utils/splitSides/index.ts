@@ -63,11 +63,7 @@ function split(
   return array;
 }
 
-// Split CSS properties to sides to support different expressions such as:
-//  - `10px`
-//  - `10px 20px`
-//  - `10px clamp(20px, 10vw, 40px)`
-//  - `var(--custom-variable, 10px) clamp(20px, 10vw, var(--custom-variable, 40px))`
+// Split CSS properties to sides to support different expressions.
 export default function splitSides(prop: string | undefined): Array<string> {
   if (typeof prop !== "string") {
     return [];

@@ -10,7 +10,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "test": "jest packages/onelayout/",
+    "test": "turbo run lint && jest packages/onelayout/",
     "test:watch": "jest packages/onelayout/ --watch",
     "test:staged": "jest packages/onelayout/ --bail --findRelatedTests",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

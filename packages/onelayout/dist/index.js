@@ -137,6 +137,62 @@ function ContainerWithContext(props) {
 
 // src/components/Row.tsx
 import { css as css2, CacheProvider as CacheProvider3, useTheme as useTheme3 } from "@emotion/react";
+
+// src/utils/splitSides.ts
+function split(value, separators, { last = false } = {}) {
+  const array = [];
+  let current = "";
+  let splitMe = false;
+  let func = 0;
+  let quote = false;
+  let escape = false;
+  for (const char of value) {
+    if (quote) {
+      if (escape) {
+        escape = false;
+      } else if (char === "\\") {
+        escape = true;
+      } else if (char === quote) {
+        quote = false;
+      }
+    } else if (char === '"' || char === "'") {
+      quote = char;
+    } else if (char === "(") {
+      func += 1;
+    } else if (char === ")") {
+      if (func > 0) {
+        func -= 1;
+      }
+    } else if (func === 0) {
+      if (separators.indexOf(char) !== -1) {
+        splitMe = true;
+      }
+    }
+    if (splitMe) {
+      if (current !== "") {
+        array.push(current.trim());
+      }
+      current = "";
+      splitMe = false;
+    } else {
+      current += char;
+    }
+  }
+  if (last || current !== "") {
+    array.push(current.trim());
+  }
+  return array;
+}
+function splitSides(prop) {
+  if (typeof prop !== "string") {
+    return [];
+  }
+  const separators = [" ", "\n", "	"];
+  const result = split(prop, separators);
+  return result;
+}
+
+// src/components/Row.tsx
 import { jsx as jsx3 } from "@emotion/react/jsx-runtime";
 function getStyles(props) {
   let result = "";
@@ -145,7 +201,7 @@ function getStyles(props) {
   } else if (false === props.wrap) {
     props.wrap = "nowrap";
   }
-  const gapArray = typeof props.gap !== "undefined" ? props.gap.split(" ") : [];
+  const gapArray = splitSides(props.gap);
   const rowGap = gapArray[0];
   let colGap = rowGap;
   if (typeof gapArray[1] !== "undefined") {
@@ -268,7 +324,7 @@ function getStyles2(props) {
   }
   if (width) {
     if (width.endsWith("%")) {
-      const sizeFromWidth = parseFloat(width) / 100;
+      const sizeFromWidth = round(parseFloat(width) / 100, 10);
       if (sizeFromWidth !== 1) {
         width = `calc(${width} - var(--ol-col-gap) + ${sizeFromWidth} * var(--ol-col-gap));
 `;
@@ -283,8 +339,8 @@ function Col(props) {
   const {
     as = "div",
     size = "grow",
-    justify = "start",
-    align = "start",
+    justify = "initial",
+    align = "initial",
     sm,
     md,
     lg,

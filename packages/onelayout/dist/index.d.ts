@@ -32,8 +32,8 @@ declare function RowWithContext(props: RowProps): JSX.Element;
 type ColStyleProps = {
     as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
     size?: "grow" | "auto" | number;
-    justify?: "start" | "end" | "center" | "stretch";
-    align?: "start" | "end" | "center" | "stretch";
+    justify?: "initial" | "start" | "end" | "center" | "stretch";
+    align?: "initial" | "start" | "end" | "center" | "stretch";
 };
 type ColProps = any | (ColStyleProps & {
     sm?: ColStyleProps;

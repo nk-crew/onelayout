@@ -2,6 +2,7 @@ import { css, CacheProvider, useTheme } from "@emotion/react";
 import getBreakpointNames from "../utils/getBreakpointNames";
 import getEmotionCache from "../utils/getEmotionCache";
 import getMediaCSS from "../utils/getMediaCSS";
+import splitSides from "../utils/splitSides";
 import Context from "./Context";
 
 type RowStyleProps = {
@@ -39,7 +40,7 @@ function getStyles(props: RowStyleProps) {
     props.wrap = "nowrap";
   }
 
-  const gapArray = props.gap === "string" ? props.gap.split(" ") : [];
+  const gapArray = splitSides(props.gap);
   const rowGap = gapArray[0];
   let colGap = rowGap;
 

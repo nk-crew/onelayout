@@ -39,7 +39,7 @@ function getStyles(props: RowStyleProps) {
     props.wrap = "nowrap";
   }
 
-  const gapArray = typeof props.gap !== "undefined" ? props.gap.split(" ") : [];
+  const gapArray = props.gap === "string" ? props.gap.split(" ") : [];
   const rowGap = gapArray[0];
   let colGap = rowGap;
 

@@ -7,8 +7,8 @@ import Context from "./Context";
 type ColStyleProps = {
   as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
   size?: "grow" | "auto" | number;
-  justify?: "start" | "end" | "center" | "stretch";
-  align?: "start" | "end" | "center" | "stretch";
+  justify?: "initial" | "start" | "end" | "center" | "stretch";
+  align?: "initial" | "start" | "end" | "center" | "stretch";
 };
 
 type ColProps =
@@ -70,8 +70,8 @@ function Col(props: ColProps): JSX.Element {
   const {
     as = "div",
     size = "grow",
-    justify = "start",
-    align = "start",
+    justify = "initial",
+    align = "initial",
     sm,
     md,
     lg,

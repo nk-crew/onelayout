@@ -53,7 +53,7 @@ function getStyles(props: ColStyleProps) {
   if (width) {
     // Prepare percent width to work with gap properly.
     if (width.endsWith("%")) {
-      const sizeFromWidth = parseFloat(width) / 100;
+      const sizeFromWidth = round(parseFloat(width) / 100, 10);
 
       if (sizeFromWidth !== 1) {
         width = `calc(${width} - var(--ol-col-gap) + ${sizeFromWidth} * var(--ol-col-gap));\n`;

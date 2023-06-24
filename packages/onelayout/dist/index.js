@@ -2,7 +2,7 @@
 import { ThemeProvider as ThemeProvider2 } from "@emotion/react";
 
 // src/components/Container.tsx
-import { css, CacheProvider as CacheProvider2, useTheme as useTheme2 } from "@emotion/react";
+import { css, useTheme as useTheme2 } from "@emotion/react";
 
 // src/utils/getNormalizedBreakpointName.ts
 function getNormalizedBreakpointName(breakpoints, name = "sm") {
@@ -50,15 +50,8 @@ function getMediaCSS(bp, content, breakpoints) {
   `;
 }
 
-// src/utils/getEmotionCache.ts
-import createCache from "@emotion/cache";
-var emotionCache = createCache({ key: "ol" });
-function getEmotionCache() {
-  return emotionCache;
-}
-
 // src/components/Context.tsx
-import { ThemeProvider, CacheProvider, useTheme } from "@emotion/react";
+import { ThemeProvider, useTheme } from "@emotion/react";
 
 // src/theme.ts
 var theme = {
@@ -93,7 +86,7 @@ function Context(props) {
       ...containerMaxWidths
     }
   };
-  return /* @__PURE__ */ jsx(CacheProvider, { value: getEmotionCache(), children: /* @__PURE__ */ jsx(ThemeProvider, { theme: theme2, children: props.children }) });
+  return /* @__PURE__ */ jsx(ThemeProvider, { theme: theme2, children: props.children });
 }
 
 // src/components/Container.tsx
@@ -107,15 +100,15 @@ function Container({
   const Element = as;
   const { breakpoints, containerMaxWidths } = useTheme2();
   const breakpointNames = getBreakpointNames(breakpoints, min, max);
-  return /* @__PURE__ */ jsx2(CacheProvider2, { value: getEmotionCache(), children: /* @__PURE__ */ jsx2(
+  return /* @__PURE__ */ jsx2(
     Element,
     {
       css: css`
-          margin-left: auto;
-          margin-right: auto;
-          width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
 
-          ${breakpointNames.map((bp) => {
+        ${breakpointNames.map((bp) => {
         return getMediaCSS(
           bp,
           `max-width: ${getContainerWidth(
@@ -126,17 +119,17 @@ function Container({
           breakpoints
         );
       })}
-        `,
+      `,
       ...restProps
     }
-  ) });
+  );
 }
 function ContainerWithContext(props) {
   return /* @__PURE__ */ jsx2(Context, { children: /* @__PURE__ */ jsx2(Container, { ...props }) });
 }
 
 // src/components/Row.tsx
-import { css as css2, CacheProvider as CacheProvider3, useTheme as useTheme3 } from "@emotion/react";
+import { css as css2, useTheme as useTheme3 } from "@emotion/react";
 
 // src/utils/splitSides/index.ts
 function split(value, separators, { last = false } = {}) {
@@ -188,8 +181,7 @@ function splitSides(prop) {
     return [];
   }
   const separators = [" ", "\n", "	"];
-  const result = split(prop, separators);
-  return result;
+  return split(prop, separators);
 }
 
 // src/components/Row.tsx
@@ -251,11 +243,11 @@ function Row(props) {
   const Element = as;
   const { breakpoints } = useTheme3();
   const breakpointNames = getBreakpointNames(breakpoints);
-  return /* @__PURE__ */ jsx3(CacheProvider3, { value: getEmotionCache(), children: /* @__PURE__ */ jsx3(
+  return /* @__PURE__ */ jsx3(
     Element,
     {
       css: css2`
-          ${getStyles({
+        ${getStyles({
         gap,
         direction,
         justify,
@@ -263,7 +255,7 @@ function Row(props) {
         wrap
       })}
 
-          ${breakpointNames.map((bp) => {
+        ${breakpointNames.map((bp) => {
         if (typeof props[bp] !== "undefined") {
           return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
         }
@@ -271,16 +263,16 @@ function Row(props) {
       })}
 
           display: flex;
-          row-gap: var(--ol-row-gap);
-          column-gap: var(--ol-col-gap);
+        row-gap: var(--ol-row-gap);
+        column-gap: var(--ol-col-gap);
 
-          > * {
-            margin: 0;
-          }
-        `,
+        > * {
+          margin: 0;
+        }
+      `,
       ...restProps
     }
-  ) });
+  );
 }
 function RowWithContext(props) {
   return /* @__PURE__ */ jsx3(Context, { children: /* @__PURE__ */ jsx3(Row, { ...props }) });

@@ -1,6 +1,5 @@
-import { css, CacheProvider, useTheme } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import getBreakpointNames from "../utils/getBreakpointNames";
-import getEmotionCache from "../utils/getEmotionCache";
 import getMediaCSS from "../utils/getMediaCSS";
 import splitSides from "../utils/splitSides";
 import Context from "./Context";
@@ -96,36 +95,34 @@ function Row(props: RowProps): JSX.Element {
   const breakpointNames = getBreakpointNames(breakpoints);
 
   return (
-    <CacheProvider value={getEmotionCache()}>
-      <Element
-        css={css`
-          ${getStyles({
-            gap,
-            direction,
-            justify,
-            align,
-            wrap,
-          })}
+    <Element
+      css={css`
+        ${getStyles({
+          gap,
+          direction,
+          justify,
+          align,
+          wrap,
+        })}
 
-          ${breakpointNames.map((bp) => {
-            if (typeof props[bp] !== "undefined") {
-              return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
-            }
+        ${breakpointNames.map((bp) => {
+          if (typeof props[bp] !== "undefined") {
+            return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
+          }
 
-            return "";
-          })}
+          return "";
+        })}
 
           display: flex;
-          row-gap: var(--ol-row-gap);
-          column-gap: var(--ol-col-gap);
+        row-gap: var(--ol-row-gap);
+        column-gap: var(--ol-col-gap);
 
-          > * {
-            margin: 0;
-          }
-        `}
-        {...restProps}
-      />
-    </CacheProvider>
+        > * {
+          margin: 0;
+        }
+      `}
+      {...restProps}
+    />
   );
 }
 

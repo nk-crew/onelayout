@@ -1,9 +1,7 @@
 "use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -17,14 +15,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
@@ -90,13 +80,6 @@ function getMediaCSS(bp, content, breakpoints) {
   `;
 }
 
-// src/utils/getEmotionCache.ts
-var import_cache = __toESM(require("@emotion/cache"), 1);
-var emotionCache = (0, import_cache.default)({ key: "ol" });
-function getEmotionCache() {
-  return emotionCache;
-}
-
 // src/components/Context.tsx
 var import_react = require("@emotion/react");
 
@@ -133,7 +116,7 @@ function Context(props) {
       ...containerMaxWidths
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.CacheProvider, { value: getEmotionCache(), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ThemeProvider, { theme: theme2, children: props.children }) });
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ThemeProvider, { theme: theme2, children: props.children });
 }
 
 // src/components/Container.tsx
@@ -147,15 +130,15 @@ function Container({
   const Element = as;
   const { breakpoints, containerMaxWidths } = (0, import_react2.useTheme)();
   const breakpointNames = getBreakpointNames(breakpoints, min, max);
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.CacheProvider, { value: getEmotionCache(), children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
     Element,
     {
       css: import_react2.css`
-          margin-left: auto;
-          margin-right: auto;
-          width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
 
-          ${breakpointNames.map((bp) => {
+        ${breakpointNames.map((bp) => {
         return getMediaCSS(
           bp,
           `max-width: ${getContainerWidth(
@@ -166,10 +149,10 @@ function Container({
           breakpoints
         );
       })}
-        `,
+      `,
       ...restProps
     }
-  ) });
+  );
 }
 function ContainerWithContext(props) {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Container, { ...props }) });
@@ -228,8 +211,7 @@ function splitSides(prop) {
     return [];
   }
   const separators = [" ", "\n", "	"];
-  const result = split(prop, separators);
-  return result;
+  return split(prop, separators);
 }
 
 // src/components/Row.tsx
@@ -291,11 +273,11 @@ function Row(props) {
   const Element = as;
   const { breakpoints } = (0, import_react3.useTheme)();
   const breakpointNames = getBreakpointNames(breakpoints);
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_react3.CacheProvider, { value: getEmotionCache(), children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
     Element,
     {
       css: import_react3.css`
-          ${getStyles({
+        ${getStyles({
         gap,
         direction,
         justify,
@@ -303,7 +285,7 @@ function Row(props) {
         wrap
       })}
 
-          ${breakpointNames.map((bp) => {
+        ${breakpointNames.map((bp) => {
         if (typeof props[bp] !== "undefined") {
           return getMediaCSS(bp, getStyles(props[bp]), breakpoints);
         }
@@ -311,16 +293,16 @@ function Row(props) {
       })}
 
           display: flex;
-          row-gap: var(--ol-row-gap);
-          column-gap: var(--ol-col-gap);
+        row-gap: var(--ol-row-gap);
+        column-gap: var(--ol-col-gap);
 
-          > * {
-            margin: 0;
-          }
-        `,
+        > * {
+          margin: 0;
+        }
+      `,
       ...restProps
     }
-  ) });
+  );
 }
 function RowWithContext(props) {
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Context, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Row, { ...props }) });

@@ -1,5 +1,4 @@
-import { ThemeProvider, CacheProvider, useTheme } from "@emotion/react";
-import getEmotionCache from "../utils/getEmotionCache";
+import { ThemeProvider, useTheme } from "@emotion/react";
 
 import defaultTheme from "../theme";
 
@@ -21,9 +20,5 @@ export default function Context(props: ContextProps): JSX.Element {
     },
   };
 
-  return (
-    <CacheProvider value={getEmotionCache()}>
-      <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
-    </CacheProvider>
-  );
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }

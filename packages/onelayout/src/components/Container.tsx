@@ -1,9 +1,8 @@
 import React from "react";
-import { css, CacheProvider, useTheme } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import getBreakpointNames from "../utils/getBreakpointNames";
 import getContainerWidth from "../utils/getContainerWidth";
 import getMediaCSS from "../utils/getMediaCSS";
-import getEmotionCache from "../utils/getEmotionCache";
 import Context from "./Context";
 
 type ContainerProps = {
@@ -29,28 +28,26 @@ function Container({
   const breakpointNames = getBreakpointNames(breakpoints, min, max);
 
   return (
-    <CacheProvider value={getEmotionCache()}>
-      <Element
-        css={css`
-          margin-left: auto;
-          margin-right: auto;
-          width: 100%;
+    <Element
+      css={css`
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
 
-          ${breakpointNames.map((bp) => {
-            return getMediaCSS(
+        ${breakpointNames.map((bp) => {
+          return getMediaCSS(
+            bp,
+            `max-width: ${getContainerWidth(
               bp,
-              `max-width: ${getContainerWidth(
-                bp,
-                containerMaxWidths,
-                breakpoints
-              )};`,
+              containerMaxWidths,
               breakpoints
-            );
-          })}
-        `}
-        {...restProps}
-      />
-    </CacheProvider>
+            )};`,
+            breakpoints
+          );
+        })}
+      `}
+      {...restProps}
+    />
   );
 }
 

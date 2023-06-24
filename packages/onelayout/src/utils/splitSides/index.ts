@@ -71,7 +71,5 @@ export default function splitSides(prop: string | undefined): Array<string> {
 
   const separators = [" ", "\n", "\t"];
 
-  const result = split(prop, separators);
-
-  return result;
+  return split(prop, separators);
 }
